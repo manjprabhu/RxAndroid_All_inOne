@@ -10,9 +10,15 @@ import java.util.Arrays;
 import java.util.List;
 
 import io.reactivex.Observable;
+import io.reactivex.Observer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
+import io.reactivex.schedulers.Schedulers;
 
 public class MainActivity extends AppCompatActivity {
+
+    private final String TAG = MainActivity.class.getSimpleName();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,12 +33,35 @@ public class MainActivity extends AppCompatActivity {
     private void createJustObservable() {
         Observable<Integer> observable = Observable.just(1,2,3,4,5,6,7);
 
-        observable.subscribe(new Consumer<Integer>() {
+        Observer observer = new Observer() {
             @Override
-            public void accept(Integer item) throws Exception {
-                Log.v("==>>","createJustObservable:"+item.intValue());
+            public void onSubscribe(Disposable d) {
+                Log.v(TAG,"Subscribed createJustObservable");
+
             }
-        });
+
+            @Override
+            public void onNext(Object o) {
+                Log.v(TAG,"createJustObservable: "+o.toString());
+            }
+
+            @Override
+            public void onError(Throwable e) {
+
+            }
+
+            @Override
+            public void onComplete() {
+                Log.v(TAG,"createJustObservable onCOmplete");
+
+            }
+        };
+
+        observable.subscribeOn(Schedulers.io()).
+                observeOn(AndroidSchedulers.mainThread())
+                .subscribe(observer);
+
+
     }
 
     private void createIteratorObservable() {
@@ -40,13 +69,7 @@ public class MainActivity extends AppCompatActivity {
 
         Observable<Integer> observable = Observable.fromIterable(list);
 
-        observable.subscribe(new Consumer<Integer>() {
-            @Override
-            public void accept(Integer integer) throws Exception {
-                Log.v("==>>","createIteratorObservable"+integer.intValue());
-
-            }
-        });
+        observable.subscribe(item -> Log.v(TAG,"createIteratorObservable:"+item.intValue()));
     }
 
     private void createEmitterObservable() {
@@ -61,15 +84,29 @@ public class MainActivity extends AppCompatActivity {
 
         });
 
-        observable.subscribe(new Consumer() {
+        observable.subscribe(new Observer() {
             @Override
-            public void accept(Object o) throws Exception {
-                Log.v("==>>","createEmitterObservable"+o.toString());
+            public void onSubscribe(Disposable d) {
+                Log.v(TAG,"onSubscribe");
+
+            }
+
+            @Override
+            public void onNext(Object o) {
+                Log.v(TAG,"onNext:"+o.toString());
+
+            }
+
+            @Override
+            public void onError(Throwable e) {
+               Log.v(TAG,"onError:"+e.toString());
+            }
+
+            @Override
+            public void onComplete() {
+                Log.v(TAG,"onComplete");
+
             }
         });
-
-
-
-
     }
 }
