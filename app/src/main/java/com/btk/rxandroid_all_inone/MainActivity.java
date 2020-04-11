@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -13,7 +12,6 @@ import io.reactivex.Observable;
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
-import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 
 public class MainActivity extends AppCompatActivity {
@@ -28,6 +26,7 @@ public class MainActivity extends AppCompatActivity {
         createEmitterObservable();
         createIteratorObservable();
         createJustObservable();
+        createObservableFromArray();
     }
 
     private void createJustObservable() {
@@ -108,5 +107,15 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+    private void createObservableFromArray() {
+        Integer[] array = new Integer[10];
+        for(int i=0;i<10;i++) {
+            array[i] = i;
+        }
+
+        Observable observable = Observable.fromArray(array);
+        observable.subscribe(item -> Log.v(TAG,"createObservableFromArray:"+item));
     }
 }
