@@ -9,6 +9,8 @@ import java.util.Arrays;
 import java.util.List;
 
 import io.reactivex.Observable;
+import io.reactivex.ObservableEmitter;
+import io.reactivex.ObservableOnSubscribe;
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
@@ -23,20 +25,23 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        createEmitterObservable();
-        createIteratorObservable();
-        createJustObservable();
-        createObservableFromArray();
+        RxAndroidObervabletest test = new RxAndroidObervabletest();
+
+//        createEmitterObservable();
+//        createIteratorObservable();
+//        createJustObservable();
+//        createObservableFromArray();
     }
 
     private void createJustObservable() {
         Observable<Integer> observable = Observable.just(1,2,3,4,5,6,7);
 
+        Observable<String> stringObservable = Observable.just("One","two","three");
+
         Observer observer = new Observer() {
             @Override
             public void onSubscribe(Disposable d) {
                 Log.v(TAG,"Subscribed createJustObservable");
-
             }
 
             @Override
@@ -56,7 +61,7 @@ public class MainActivity extends AppCompatActivity {
             }
         };
 
-        observable.subscribeOn(Schedulers.io()).
+        stringObservable.subscribeOn(Schedulers.io()).
                 observeOn(AndroidSchedulers.mainThread())
                 .subscribe(observer);
 
@@ -66,21 +71,24 @@ public class MainActivity extends AppCompatActivity {
     private void createIteratorObservable() {
         List<Integer> list = Arrays.asList(1,2,3,4,5,6,7,8);
 
-        Observable<Integer> observable = Observable.fromIterable(list);
+        Observable<Integer> observable = Observable.fromArray(1,2,3,4,5);
 
         observable.subscribe(item -> Log.v(TAG,"createIteratorObservable:"+item.intValue()));
     }
 
     private void createEmitterObservable() {
-        Observable observable = Observable.create(emitter -> {
-            emitter.onNext("1");
-            emitter.onNext("2");
-            emitter.onNext("3");
-            emitter.onNext("4");
-            emitter.onNext("5");
-            emitter.onNext("6");
-            emitter.onNext("7");
+        Observable observable = Observable.create(new ObservableOnSubscribe<Object>() {
+            @Override
+            public void subscribe(ObservableEmitter<Object> emitter) throws Exception {
+                emitter.onNext("1");
+                emitter.onNext("2");
+                emitter.onNext("3");
+                emitter.onNext("4");
+                emitter.onNext("5");
+                emitter.onNext("6");
+                emitter.onNext("7");
 
+            }
         });
 
         observable.subscribe(new Observer() {
