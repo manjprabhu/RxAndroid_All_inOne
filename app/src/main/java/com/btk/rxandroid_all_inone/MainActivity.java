@@ -25,7 +25,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        RxAndroidObervabletest test = new RxAndroidObervabletest();
+      ObservableUsingOperators usingOperators =   new ObservableUsingOperators();
 
 //        createEmitterObservable();
 //        createIteratorObservable();

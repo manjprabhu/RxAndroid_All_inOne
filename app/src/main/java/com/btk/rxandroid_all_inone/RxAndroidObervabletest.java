@@ -2,6 +2,9 @@ package com.btk.rxandroid_all_inone;
 
 import android.util.Log;
 
+import java.util.concurrent.Callable;
+import java.util.concurrent.TimeUnit;
+
 import io.reactivex.Completable;
 import io.reactivex.CompletableEmitter;
 import io.reactivex.CompletableObserver;
@@ -25,7 +28,7 @@ import io.reactivex.schedulers.Schedulers;
 public class RxAndroidObervabletest {
 
     public RxAndroidObervabletest() {
-        testmaybe();
+        createObservablefromCallable();
     }
 
     private void testmaybe() {
@@ -178,15 +181,16 @@ public class RxAndroidObervabletest {
 
     }
 
+
+    //Creates an Observable using "Create" operator, here an emitter is used to call the respective interface method.
     private Observable<String> getAnimalObservable() {
 
+        /*
+         * Called for each Observer that subscribes.
+         *
+         * @param emitter the safe emitter instance, never null
+         * @throws Exception on error*/
         return Observable.create(new ObservableOnSubscribe<String>() {
-            /*
-             * Called for each Observer that subscribes.
-             *
-             * @param emitter the safe emitter instance, never null
-             * @throws Exception on error*/
-
             @Override
             public void subscribe(ObservableEmitter<String> emitter) throws Exception {
                 emitter.onNext("Cat");
@@ -201,5 +205,136 @@ public class RxAndroidObervabletest {
 
 //        Create observable using "just" operator
 //        return Observable.just("hi","hello","who","how","where");
+    }
+
+    //Create an Observable using "from" operator. Here we have used fromarray() to create an observable.
+    private void createObservableusingfrom() {
+
+        String[] array = {"a","b","c","d","e","f"};
+
+        Observable observable = Observable.fromArray(array);
+
+        Observer fromObserver = new Observer() {
+            @Override
+            public void onSubscribe(Disposable d) {
+                Log.v("===","onSubscribe");
+
+            }
+
+            @Override
+            public void onNext(Object o) {
+                Log.v("===","onNext:"+o.toString());
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                Log.v("===","onError");
+            }
+
+            @Override
+            public void onComplete() {
+                Log.v("===","onComplete");
+            }
+        };
+
+        observable.subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(fromObserver);
+    }
+
+    private void createObservablefromCallable() {
+        Callable callable = new Callable() {
+            @Override
+            public Object call() throws Exception {
+                return "Hello this callable";
+            }
+        };
+
+        Observable observable = Observable.fromCallable(callable);
+
+        Observer observer = new Observer() {
+            @Override
+            public void onSubscribe(Disposable d) {
+                Log.v("===","onSubscribe");
+            }
+
+            @Override
+            public void onNext(Object o) {
+                Log.v("===","onNext:"+o.toString());
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                Log.v("===","onError");
+            }
+
+            @Override
+            public void onComplete() {
+                Log.v("===","onComplete");
+            }
+        };
+
+        observable.subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(observer);
+    }
+
+    private void createObservableUsingInterval() {
+        Observable observable = Observable.interval(1, TimeUnit.SECONDS);
+
+        Observer intervalobserver = new Observer() {
+            @Override
+            public void onSubscribe(Disposable d) {
+                Log.v("===","onSubscribe");
+            }
+
+            @Override
+            public void onNext(Object o) {
+                Log.v("===","onNext:"+o.toString());
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                Log.v("===","onError");
+            }
+
+            @Override
+            public void onComplete() {
+                Log.v("===","onComplete");
+            }
+        };
+
+        observable.observeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(intervalobserver);
+    }
+
+    private void createRangeObservable() {
+
+        Observable observable = Observable.range(1, 10);
+
+        Observer rangeObserver = new Observer() {
+            @Override
+            public void onSubscribe(Disposable d) {
+                Log.v("===","onSubscribe");
+            }
+
+            @Override
+            public void onNext(Object o) {
+                Log.v("===","onNext:"+o.toString());
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                Log.v("===","onError");
+            }
+
+            @Override
+            public void onComplete() {
+                Log.v("===","onComplete");
+            }
+        };
+
+        observable.subscribe(rangeObserver);
     }
 }
