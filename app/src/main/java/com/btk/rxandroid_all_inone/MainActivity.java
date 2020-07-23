@@ -25,12 +25,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-      ObservableUsingOperators usingOperators =   new ObservableUsingOperators();
+        OperatorForTransformingObservables operator = new OperatorForTransformingObservables();
 
-//        createEmitterObservable();
-//        createIteratorObservable();
-//        createJustObservable();
-//        createObservableFromArray();
+
     }
 
     private void createJustObservable() {

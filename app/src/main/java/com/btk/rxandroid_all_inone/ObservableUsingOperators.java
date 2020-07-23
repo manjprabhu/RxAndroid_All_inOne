@@ -1,10 +1,6 @@
 package com.btk.rxandroid_all_inone;
 
-
 import android.util.Log;
-
-import androidx.annotation.MainThread;
-
 import java.util.concurrent.Callable;
 import java.util.concurrent.TimeUnit;
 
@@ -12,14 +8,11 @@ import io.reactivex.Observable;
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
-import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 
 public class ObservableUsingOperators {
 
     public ObservableUsingOperators() {
-
-        test();
     }
 
     //Create observable using "Create" operator
@@ -198,7 +191,7 @@ public class ObservableUsingOperators {
                 .subscribe(observer);
     }
 
-    //Create an observable using "interval" opearator.
+    //Create an observable using "intervalRange" opearator.
     private void createObservableusingIntervalRange() {
 
         Observable observable = Observable.intervalRange(1, 10,1,1, TimeUnit.SECONDS);
