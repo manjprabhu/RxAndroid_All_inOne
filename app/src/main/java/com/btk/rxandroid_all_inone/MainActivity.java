@@ -1,9 +1,9 @@
 package com.btk.rxandroid_all_inone;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
 import android.util.Log;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.Arrays;
 import java.util.List;
@@ -25,9 +25,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        OperatorForTransformingObservables operator = new OperatorForTransformingObservables();
-
-
+        TransformOperators transformOperators =  new TransformOperators();
     }
 
     private void createJustObservable() {
@@ -103,7 +101,7 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onError(Throwable e) {
-               Log.v(TAG,"onError:"+e.toString());
+                Log.v(TAG,"onError:"+e.toString());
             }
 
             @Override
