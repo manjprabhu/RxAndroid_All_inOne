@@ -7,6 +7,7 @@ import com.btk.rxandroid_all_inone.data.Person;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import io.reactivex.Observable;
 import io.reactivex.Observer;
@@ -23,10 +24,10 @@ public class TransformOperators {
 
     private Observable getEmployeeObservable(Person person) {
 
-        int[] salary =  {100,200,350};
+        int[] salary = {100, 200, 350};
         List<Employee> employees = new ArrayList<>();
 
-        for(int x = 0;x<salary.length;x++) {
+        for (int x = 0; x < salary.length; x++) {
 
             Employee employee = new Employee();
             employee.setSalary(salary[x]);
@@ -34,7 +35,8 @@ public class TransformOperators {
         }
 
         Observable observable = Observable.create(emitter -> {
-            if(!emitter.isDisposed()) {
+            if (!emitter.isDisposed()) {
+                final int delay = new Random().nextInt(2);
                 person.setSalary(100);
                 emitter.onNext(person);
             }
@@ -45,62 +47,54 @@ public class TransformOperators {
 
     private Observable getPersonObservable() {
 
-        String[]  name =  {"A","B","C"};
-
+        String[] name = {"A", "B", "C", "D", "E", "F", "G"};
         List<Person> personList = new ArrayList<>();
 
-        for(int x =0;x<name.length;x++) {
-
+        for (int x = 0; x < name.length; x++) {
             Person person = new Person();
             person.setName(name[x]);
-            person.setAge((x*2)+10);
+            person.setAge((x * 2) + 10);
             personList.add(person);
         }
 
-        Observable personObservable =  Observable.create(emitter -> {
+        Observable personObservable = Observable.create(emitter -> {
 
-            if(!emitter.isDisposed()) {
-                for(Person person : personList) {
+            if (!emitter.isDisposed()) {
+                for (Person person : personList) {
                     emitter.onNext(person);
                 }
-            } else  {
+            } else {
                 emitter.onComplete();
             }
         });
-
         return personObservable;
-
     }
 
     private void testFlatmap() {
-
         Observer observer = new Observer<Person>() {
             @Override
             public void onSubscribe(Disposable d) {
-                Log.v("===","onSubscribe");
+                Log.v("===", "onSubscribe");
             }
 
             @Override
             public void onNext(Person o) {
-                Log.v("===","onNext:"+o.getSalary() + " Name:"+o.getName());
-
+                Log.v("===", "onNext:" + o.getSalary() + " Name:" + o.getName());
             }
 
             @Override
             public void onError(Throwable e) {
-                Log.v("===","onError");
-
+                Log.v("===", "onError");
             }
 
             @Override
             public void onComplete() {
-                Log.v("===","onComplete");
-
+                Log.v("===", "onComplete");
             }
         };
 
         getPersonObservable().subscribeOn(Schedulers.io())
-                .flatMap(new Function<Person,Observable>() {
+                .flatMap(new Function<Person, Observable>() {
                     @Override
                     public Observable apply(Person person) throws Exception {
                         return getEmployeeObservable(person);
@@ -108,5 +102,44 @@ public class TransformOperators {
                 })
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(observer);
+    }
+
+    //test map opeartor.
+    private void testmapoperator() {
+
+        Observable observable = getPersonObservable();
+
+        Observer observer = new Observer() {
+            @Override
+            public void onSubscribe(Disposable d) {
+                Log.v("===", "onSubscribe");
+            }
+
+            @Override
+            public void onNext(Object o) {
+                Log.v("===", "onNext");
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                Log.v("===", "onError");
+            }
+
+            @Override
+            public void onComplete() {
+                Log.v("===", "onComplete");
+            }
+        };
+
+        observable.subscribeOn(Schedulers.io())
+                .map(new Function<Person,String>() {
+                    @Override
+                    public String apply(Person o) throws Exception {
+                        return o.getName().toLowerCase();
+                    }
+                })
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(observer);
+
     }
 }
