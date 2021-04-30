@@ -25,23 +25,23 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        TransformOperators transformOperators =  new TransformOperators();
+        TransformOperators transformOperators = new TransformOperators();
     }
 
     private void createJustObservable() {
-        Observable<Integer> observable = Observable.just(1,2,3,4,5,6,7);
+        Observable<Integer> observable = Observable.just(1, 2, 3, 4, 5, 6, 7);
 
-        Observable<String> stringObservable = Observable.just("One","two","three");
+        Observable<String> stringObservable = Observable.just("One", "two", "three");
 
         Observer observer = new Observer() {
             @Override
             public void onSubscribe(Disposable d) {
-                Log.v(TAG,"Subscribed createJustObservable");
+                Log.v(TAG, "Subscribed createJustObservable");
             }
 
             @Override
             public void onNext(Object o) {
-                Log.v(TAG,"createJustObservable: "+o.toString());
+                Log.v(TAG, "createJustObservable: " + o.toString());
             }
 
             @Override
@@ -51,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onComplete() {
-                Log.v(TAG,"createJustObservable onCOmplete");
+                Log.v(TAG, "createJustObservable onCOmplete");
 
             }
         };
@@ -64,11 +64,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void createIteratorObservable() {
-        List<Integer> list = Arrays.asList(1,2,3,4,5,6,7,8);
+        List<Integer> list = Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8);
 
-        Observable<Integer> observable = Observable.fromArray(1,2,3,4,5);
+        Observable<Integer> observable = Observable.fromArray(1, 2, 3, 4, 5);
 
-        observable.subscribe(item -> Log.v(TAG,"createIteratorObservable:"+item.intValue()));
+        observable.subscribe(item -> Log.v(TAG, "createIteratorObservable:" + item.intValue()));
     }
 
     private void createEmitterObservable() {
@@ -89,24 +89,24 @@ public class MainActivity extends AppCompatActivity {
         observable.subscribe(new Observer() {
             @Override
             public void onSubscribe(Disposable d) {
-                Log.v(TAG,"onSubscribe");
+                Log.v(TAG, "onSubscribe");
 
             }
 
             @Override
             public void onNext(Object o) {
-                Log.v(TAG,"onNext:"+o.toString());
+                Log.v(TAG, "onNext:" + o.toString());
 
             }
 
             @Override
             public void onError(Throwable e) {
-                Log.v(TAG,"onError:"+e.toString());
+                Log.v(TAG, "onError:" + e.toString());
             }
 
             @Override
             public void onComplete() {
-                Log.v(TAG,"onComplete");
+                Log.v(TAG, "onComplete");
 
             }
         });
@@ -114,11 +114,11 @@ public class MainActivity extends AppCompatActivity {
 
     private void createObservableFromArray() {
         Integer[] array = new Integer[10];
-        for(int i=0;i<10;i++) {
+        for (int i = 0; i < 10; i++) {
             array[i] = i;
         }
 
         Observable observable = Observable.fromArray(array);
-        observable.subscribe(item -> Log.v(TAG,"createObservableFromArray:"+item));
+        observable.subscribe(item -> Log.v(TAG, "createObservableFromArray:" + item));
     }
 }

@@ -36,12 +36,12 @@ public class RxAndroidObervabletest {
         MaybeObserver maybeObserver = new MaybeObserver() {
             @Override
             public void onSubscribe(Disposable d) {
-                Log.v("===","onSubscribe");
+                Log.v("===", "onSubscribe");
             }
 
             @Override
             public void onSuccess(Object o) {
-                Log.v("===","Onsuccess:"+o.toString());
+                Log.v("===", "Onsuccess:" + o.toString());
             }
 
             @Override
@@ -75,20 +75,20 @@ public class RxAndroidObervabletest {
 
     private void testSingle(boolean value) {
 
-        SingleObserver singleObserver  = new SingleObserver() {
+        SingleObserver singleObserver = new SingleObserver() {
             @Override
             public void onSubscribe(Disposable d) {
-                Log.v("===","Single observable subscribed");
+                Log.v("===", "Single observable subscribed");
             }
 
             @Override
             public void onSuccess(Object o) {
-                Log.v("===","Onsuccess:"+o.toString());
+                Log.v("===", "Onsuccess:" + o.toString());
             }
 
             @Override
             public void onError(Throwable e) {
-                Log.v("===","onError:"+e.toString());
+                Log.v("===", "onError:" + e.toString());
             }
         };
 
@@ -103,7 +103,7 @@ public class RxAndroidObervabletest {
 
             @Override
             public void subscribe(SingleEmitter<Boolean> emitter) throws Exception {
-                if(value) {
+                if (value) {
                     emitter.onSuccess(true);
                 } else {
                     emitter.onError(new Throwable("failure"));
@@ -119,12 +119,12 @@ public class RxAndroidObervabletest {
         CompletableObserver completableObserver = new CompletableObserver() {
             @Override
             public void onSubscribe(Disposable d) {
-                Log.v("===","Oncompletable subscription");
+                Log.v("===", "Oncompletable subscription");
             }
 
             @Override
             public void onComplete() {
-                Log.v("===","Oncomplete");
+                Log.v("===", "Oncomplete");
             }
 
             @Override
@@ -155,12 +155,12 @@ public class RxAndroidObervabletest {
         Observer observer = new Observer() {
             @Override
             public void onSubscribe(Disposable d) {
-                Log.v("===","Subscription started:");
+                Log.v("===", "Subscription started:");
             }
 
             @Override
             public void onNext(Object o) {
-                Log.v("===","onNext:"+o.toString());
+                Log.v("===", "onNext:" + o.toString());
             }
 
             @Override
@@ -170,7 +170,7 @@ public class RxAndroidObervabletest {
 
             @Override
             public void onComplete() {
-                Log.v("===","onComplete");
+                Log.v("===", "onComplete");
             }
         };
 
@@ -210,30 +210,30 @@ public class RxAndroidObervabletest {
     //Create an Observable using "from" operator. Here we have used fromarray() to create an observable.
     private void createObservableusingfrom() {
 
-        String[] array = {"a","b","c","d","e","f"};
+        String[] array = {"a", "b", "c", "d", "e", "f"};
 
         Observable observable = Observable.fromArray(array);
 
         Observer fromObserver = new Observer() {
             @Override
             public void onSubscribe(Disposable d) {
-                Log.v("===","onSubscribe");
+                Log.v("===", "onSubscribe");
 
             }
 
             @Override
             public void onNext(Object o) {
-                Log.v("===","onNext:"+o.toString());
+                Log.v("===", "onNext:" + o.toString());
             }
 
             @Override
             public void onError(Throwable e) {
-                Log.v("===","onError");
+                Log.v("===", "onError");
             }
 
             @Override
             public void onComplete() {
-                Log.v("===","onComplete");
+                Log.v("===", "onComplete");
             }
         };
 
@@ -255,22 +255,22 @@ public class RxAndroidObervabletest {
         Observer observer = new Observer() {
             @Override
             public void onSubscribe(Disposable d) {
-                Log.v("===","onSubscribe");
+                Log.v("===", "onSubscribe");
             }
 
             @Override
             public void onNext(Object o) {
-                Log.v("===","onNext:"+o.toString());
+                Log.v("===", "onNext:" + o.toString());
             }
 
             @Override
             public void onError(Throwable e) {
-                Log.v("===","onError");
+                Log.v("===", "onError");
             }
 
             @Override
             public void onComplete() {
-                Log.v("===","onComplete");
+                Log.v("===", "onComplete");
             }
         };
 
@@ -285,22 +285,22 @@ public class RxAndroidObervabletest {
         Observer intervalobserver = new Observer() {
             @Override
             public void onSubscribe(Disposable d) {
-                Log.v("===","onSubscribe");
+                Log.v("===", "onSubscribe");
             }
 
             @Override
             public void onNext(Object o) {
-                Log.v("===","onNext:"+o.toString());
+                Log.v("===", "onNext:" + o.toString());
             }
 
             @Override
             public void onError(Throwable e) {
-                Log.v("===","onError");
+                Log.v("===", "onError");
             }
 
             @Override
             public void onComplete() {
-                Log.v("===","onComplete");
+                Log.v("===", "onComplete");
             }
         };
 
@@ -316,22 +316,22 @@ public class RxAndroidObervabletest {
         Observer rangeObserver = new Observer() {
             @Override
             public void onSubscribe(Disposable d) {
-                Log.v("===","onSubscribe");
+                Log.v("===", "onSubscribe");
             }
 
             @Override
             public void onNext(Object o) {
-                Log.v("===","onNext:"+o.toString());
+                Log.v("===", "onNext:" + o.toString());
             }
 
             @Override
             public void onError(Throwable e) {
-                Log.v("===","onError");
+                Log.v("===", "onError");
             }
 
             @Override
             public void onComplete() {
-                Log.v("===","onComplete");
+                Log.v("===", "onComplete");
             }
         };
 

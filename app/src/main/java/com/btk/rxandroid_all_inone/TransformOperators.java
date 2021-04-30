@@ -132,7 +132,7 @@ public class TransformOperators {
         };
 
         observable.subscribeOn(Schedulers.io())
-                .map(new Function<Person,String>() {
+                .map(new Function<Person, String>() {
                     @Override
                     public String apply(Person o) throws Exception {
                         return o.getName().toLowerCase();

@@ -18,43 +18,43 @@ import io.reactivex.schedulers.Schedulers;
 public class OperatorForTransformingObservables {
 
     public OperatorForTransformingObservables() {
-       flatmapopearator();
+        flatmapopearator();
     }
 
     //Map operator transforms the each item emitted by observable by applying some function, and return the modified item.
     private void mapoperator() {
 
-        List<Integer> list = new ArrayList<>(Arrays.asList(1,2,3,4,2));
+        List<Integer> list = new ArrayList<>(Arrays.asList(1, 2, 3, 4, 2));
 
-        Observable observable =  Observable.fromIterable(list);
+        Observable observable = Observable.fromIterable(list);
 
         Observer observer = new Observer<Integer>() {
             @Override
             public void onSubscribe(Disposable d) {
-                Log.v("===","onSubscribe");
+                Log.v("===", "onSubscribe");
             }
 
             @Override
             public void onNext(Integer o) {
-                Log.v("===","onNext:"+o.intValue());
+                Log.v("===", "onNext:" + o.intValue());
             }
 
             @Override
             public void onError(Throwable e) {
-                Log.v("===","onError");
+                Log.v("===", "onError");
             }
 
             @Override
             public void onComplete() {
-                Log.v("===","onComplete");
+                Log.v("===", "onComplete");
             }
         };
 
         observable.subscribeOn(Schedulers.io())
-                .map(new Function<Integer,Integer>() {
+                .map(new Function<Integer, Integer>() {
                     @Override
                     public Integer apply(Integer o) throws Exception {
-                        return o*2;
+                        return o * 2;
                     }
                 })
                 .observeOn(AndroidSchedulers.mainThread())
@@ -65,16 +65,16 @@ public class OperatorForTransformingObservables {
     // it returns the another item
     private void flatmapopearator() {
 
-        List<Integer> list =  Arrays.asList(1,2,3,4,5,6);
+        List<Integer> list = Arrays.asList(1, 2, 3, 4, 5, 6);
 
         Observable OriginalObservable = Observable.create(emitter -> {
-            for(Integer x : list) {
-                if(!emitter.isDisposed()) {
+            for (Integer x : list) {
+                if (!emitter.isDisposed()) {
                     emitter.onNext(x);
                 }
             }
 
-            if(emitter.isDisposed()) {
+            if (emitter.isDisposed()) {
                 emitter.onComplete();
             }
         });
@@ -82,28 +82,28 @@ public class OperatorForTransformingObservables {
         Observer observer = new Observer() {
             @Override
             public void onSubscribe(Disposable d) {
-                Log.v("===","onSubscribe");
+                Log.v("===", "onSubscribe");
             }
 
             @Override
             public void onNext(Object o) {
-                Log.v("===","onNext:"+o.toString());
+                Log.v("===", "onNext:" + o.toString());
 
             }
 
             @Override
             public void onError(Throwable e) {
-                Log.v("===","onError");
+                Log.v("===", "onError");
             }
 
             @Override
             public void onComplete() {
-                Log.v("===","onComplete");
+                Log.v("===", "onComplete");
             }
         };
 
         OriginalObservable.subscribeOn(Schedulers.io())
-                .concatMap(new Function<Integer,Observable>() {
+                .concatMap(new Function<Integer, Observable>() {
                     @Override
                     public Observable apply(Integer o) throws Exception {
                         return getModifiedObservable(o);
@@ -118,10 +118,9 @@ public class OperatorForTransformingObservables {
             @Override
             public void subscribe(ObservableEmitter<Integer> emitter) throws Exception {
 
-                if(!emitter.isDisposed()) {
+                if (!emitter.isDisposed()) {
                     emitter.onNext(integer * 2);
-                }
-                else if(emitter.isDisposed()) {
+                } else if (emitter.isDisposed()) {
                     emitter.onComplete();
                 }
 

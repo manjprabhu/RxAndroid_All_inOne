@@ -1,6 +1,7 @@
 package com.btk.rxandroid_all_inone;
 
 import android.util.Log;
+
 import java.util.concurrent.Callable;
 import java.util.concurrent.TimeUnit;
 
@@ -18,11 +19,11 @@ public class ObservableUsingOperators {
     //Create observable using "Create" operator
     private void ObservableusingCreate() {
 
-        String array[] = {"One", "Two","Three" };
+        String array[] = {"One", "Two", "Three"};
 
         Observable createObservable = Observable.create(emitter -> {
 
-            for(String x : array) {
+            for (String x : array) {
                 emitter.onNext(x);
             }
             emitter.onComplete();
@@ -31,22 +32,22 @@ public class ObservableUsingOperators {
         Observer observer = new Observer() {
             @Override
             public void onSubscribe(Disposable d) {
-                Log.v("===","onSubscribe");
+                Log.v("===", "onSubscribe");
             }
 
             @Override
             public void onNext(Object o) {
-                Log.v("===","onNext:"+o.toString());
+                Log.v("===", "onNext:" + o.toString());
             }
 
             @Override
             public void onError(Throwable e) {
-                Log.v("===","onError");
+                Log.v("===", "onError");
             }
 
             @Override
             public void onComplete() {
-                Log.v("===","onComplete:");
+                Log.v("===", "onComplete:");
             }
         };
 
@@ -57,29 +58,29 @@ public class ObservableUsingOperators {
 
     //Create Observable using "from" opearator" , here we have used "fromarray"
     private void observableusingfromarray() {
-        String[] array = {"a","b","c","d","e","f"};
+        String[] array = {"a", "b", "c", "d", "e", "f"};
 
         Observable observable = Observable.fromArray(array);
 
         Observer observer = new Observer<String>() {
             @Override
             public void onSubscribe(Disposable d) {
-                Log.v("===","onSubscribe:");
+                Log.v("===", "onSubscribe:");
             }
 
             @Override
             public void onNext(String o) {
-                Log.v("===","onNext:"+o);
+                Log.v("===", "onNext:" + o);
             }
 
             @Override
             public void onError(Throwable e) {
-                Log.v("===","onError:");
+                Log.v("===", "onError:");
             }
 
             @Override
             public void onComplete() {
-                Log.v("===","onComplete:");
+                Log.v("===", "onComplete:");
             }
         };
 
@@ -103,22 +104,22 @@ public class ObservableUsingOperators {
         Observer observer = new Observer() {
             @Override
             public void onSubscribe(Disposable d) {
-                Log.v("===","onSubscribe");
+                Log.v("===", "onSubscribe");
             }
 
             @Override
             public void onNext(Object o) {
-                Log.v("===","onNext:"+o.toString());
+                Log.v("===", "onNext:" + o.toString());
             }
 
             @Override
             public void onError(Throwable e) {
-                Log.v("===","onError");
+                Log.v("===", "onError");
             }
 
             @Override
             public void onComplete() {
-                Log.v("===","onComplete");
+                Log.v("===", "onComplete");
             }
         };
 
@@ -135,22 +136,22 @@ public class ObservableUsingOperators {
         Observer observer = new Observer<Integer>() {
             @Override
             public void onSubscribe(Disposable d) {
-                Log.v("===","onSubscribe");
+                Log.v("===", "onSubscribe");
             }
 
             @Override
             public void onNext(Integer o) {
-                Log.v("===","onNext:"+o.intValue());
+                Log.v("===", "onNext:" + o.intValue());
             }
 
             @Override
             public void onError(Throwable e) {
-                Log.v("===","onError");
+                Log.v("===", "onError");
             }
 
             @Override
             public void onComplete() {
-                Log.v("===","onComplete");
+                Log.v("===", "onComplete");
             }
         };
 
@@ -167,22 +168,22 @@ public class ObservableUsingOperators {
         Observer observer = new Observer<Long>() {
             @Override
             public void onSubscribe(Disposable d) {
-                Log.v("===","onSubscribe");
+                Log.v("===", "onSubscribe");
             }
 
             @Override
             public void onNext(Long o) {
-                Log.v("===","onNext:"+o);
+                Log.v("===", "onNext:" + o);
             }
 
             @Override
             public void onError(Throwable e) {
-                Log.v("===","onError");
+                Log.v("===", "onError");
             }
 
             @Override
             public void onComplete() {
-                Log.v("===","onComplete");
+                Log.v("===", "onComplete");
             }
         };
 
@@ -194,27 +195,27 @@ public class ObservableUsingOperators {
     //Create an observable using "intervalRange" opearator.
     private void createObservableusingIntervalRange() {
 
-        Observable observable = Observable.intervalRange(1, 10,1,1, TimeUnit.SECONDS);
+        Observable observable = Observable.intervalRange(1, 10, 1, 1, TimeUnit.SECONDS);
 
         Observer observer = new Observer<Long>() {
             @Override
             public void onSubscribe(Disposable d) {
-                Log.v("===","onSubscribe");
+                Log.v("===", "onSubscribe");
             }
 
             @Override
             public void onNext(Long o) {
-                Log.v("===","onNext:"+o);
+                Log.v("===", "onNext:" + o);
             }
 
             @Override
             public void onError(Throwable e) {
-                Log.v("===","onError");
+                Log.v("===", "onError");
             }
 
             @Override
             public void onComplete() {
-                Log.v("===","onComplete");
+                Log.v("===", "onComplete");
             }
         };
 
