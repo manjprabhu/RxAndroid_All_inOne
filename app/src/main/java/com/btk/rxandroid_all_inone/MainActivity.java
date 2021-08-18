@@ -26,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
 //        TransformOperators transformOperators = new TransformOperators();
-        createJustObservable();
+        createIteratorObservable();
     }
 
     private void createJustObservable() {
@@ -74,7 +74,12 @@ public class MainActivity extends AppCompatActivity {
 
         Observable<Integer> observable = Observable.fromArray(1, 2, 3, 4, 5);
 
-        observable.subscribe(item -> Log.v(TAG, "createIteratorObservable:" + item.intValue()));
+        observable.subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(result -> {
+                    Log.v(TAG, "Result :" + result);
+                });
+
     }
 
     private void createEmitterObservable() {
@@ -96,13 +101,11 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onSubscribe(Disposable d) {
                 Log.v(TAG, "onSubscribe");
-
             }
 
             @Override
             public void onNext(Object o) {
                 Log.v(TAG, "onNext:" + o.toString());
-
             }
 
             @Override
@@ -113,7 +116,6 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onComplete() {
                 Log.v(TAG, "onComplete");
-
             }
         });
     }
