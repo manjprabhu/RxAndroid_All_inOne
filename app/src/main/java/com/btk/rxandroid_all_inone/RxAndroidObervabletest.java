@@ -68,7 +68,7 @@ public class RxAndroidObervabletest {
             }
         });
 
-        //create Maybe observable using just
+//        create Maybe observable using just
 //        return Maybe.just("hello this is maybe ");
     }
 

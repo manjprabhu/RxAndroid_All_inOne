@@ -92,12 +92,7 @@ public class ObservableUsingOperators {
     //Create an observable using "from" operator, here we have used "fromCallable"
     private void observableusingfromCallable() {
 
-        Callable callable = new Callable() {
-            @Override
-            public Object call() throws Exception {
-                return "This is callable observable";
-            }
-        };
+        Callable callable = () -> "This is callable observable";
 
         Observable observable = Observable.fromCallable(callable);
 

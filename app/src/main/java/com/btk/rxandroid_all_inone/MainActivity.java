@@ -59,8 +59,6 @@ public class MainActivity extends AppCompatActivity {
         stringObservable.subscribeOn(Schedulers.io()).
                 observeOn(AndroidSchedulers.mainThread())
                 .subscribe(observer);
-
-
     }
 
     private void createIteratorObservable() {

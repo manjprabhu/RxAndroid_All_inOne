@@ -88,7 +88,6 @@ public class OperatorForTransformingObservables {
             @Override
             public void onNext(Object o) {
                 Log.v("===", "onNext:" + o.toString());
-
             }
 
             @Override
