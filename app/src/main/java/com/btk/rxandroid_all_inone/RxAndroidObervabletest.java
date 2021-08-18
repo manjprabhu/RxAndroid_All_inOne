@@ -27,6 +27,8 @@ import io.reactivex.schedulers.Schedulers;
 
 public class RxAndroidObervabletest {
 
+    private final String TAG = RxAndroidObervabletest.class.getSimpleName();
+
     public RxAndroidObervabletest() {
         createObservablefromCallable();
     }
@@ -57,6 +59,12 @@ public class RxAndroidObervabletest {
         getString().subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(maybeObserver);
+
+        getString().subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(result -> {
+                    Log.v(TAG,"===>> result:"+result);
+                });
 
     }
 
@@ -218,7 +226,6 @@ public class RxAndroidObervabletest {
             @Override
             public void onSubscribe(Disposable d) {
                 Log.v("===", "onSubscribe");
-
             }
 
             @Override
