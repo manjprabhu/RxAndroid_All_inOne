@@ -86,7 +86,9 @@ public class ObservableUsingOperators {
 
         observable.subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(observer);
+                .subscribe(result -> {
+                    Log.v("===","Result: "+result);
+                });
     }
 
     //Create an observable using "from" operator, here we have used "fromCallable"

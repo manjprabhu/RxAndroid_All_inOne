@@ -51,14 +51,17 @@ public class OperatorForTransformingObservables {
         };
 
         observable.subscribeOn(Schedulers.io())
-                .map(new Function<Integer, Integer>() {
-                    @Override
-                    public Integer apply(Integer o) throws Exception {
-                        return o * 2;
-                    }
-                })
+                .map((Function<Integer, Integer>) o -> o * 2)
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(observer);
+                .doOnSubscribe(disposable -> {
+                    Log.v("===", " doOnSubscribe:");
+                })
+                .subscribe(result -> {
+                            Log.v("===", " Result:" + result);
+                        },
+                        throwable -> {
+                            Log.v("===", " onError:" + throwable.toString());
+                        });
     }
 
     //Flatmap operator transforms the each item emitted by an observable by applying some function and instead of returning the modified item
