@@ -188,7 +188,9 @@ public class RxAndroidObervabletest {
 
         getAnimalObservable().subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(observer);
+                .subscribe(result -> {
+                    Log.v("===", "Result:"+result);
+                });
 
     }
 
