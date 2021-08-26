@@ -31,6 +31,7 @@ public class RxAndroidObervabletest {
 
     public RxAndroidObervabletest() {
         createObservablefromCallable();
+        testcompletable();
     }
 
     private void testmaybe() {
@@ -143,7 +144,9 @@ public class RxAndroidObervabletest {
 
         getValue().observeOn(Schedulers.io())
                 .subscribeOn(AndroidSchedulers.mainThread())
-                .subscribe(completableObserver);
+                .subscribe(() -> {
+                    Log.v(TAG,"Completed :");
+                });
 
     }
 
