@@ -251,7 +251,12 @@ public class RxAndroidObervabletest {
     }
 
     private void createObservablefromCallable() {
-        Callable callable = () -> "Hello this callable";
+        Callable callable = new Callable() {
+            @Override
+            public Object call() throws Exception {
+                return "Hello this callable";
+            }
+        };
 
         Observable observable = Observable.fromCallable(callable);
 
