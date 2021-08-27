@@ -71,11 +71,7 @@ public class RxAndroidObervabletest {
 
     private Maybe<String> getString() {
         //create Maybe observable using create
-        return Maybe.create(new MaybeOnSubscribe<String>() {
-            public void subscribe(MaybeEmitter<String> emitter) throws Exception {
-                emitter.onSuccess("hello");
-            }
-        });
+        return Maybe.create(emitter -> emitter.onSuccess("hello"));
 
 //        create Maybe observable using just
 //        return Maybe.just("hello this is maybe ");
@@ -255,12 +251,7 @@ public class RxAndroidObervabletest {
     }
 
     private void createObservablefromCallable() {
-        Callable callable = new Callable() {
-            @Override
-            public Object call() throws Exception {
-                return "Hello this callable";
-            }
-        };
+        Callable callable = () -> "Hello this callable";
 
         Observable observable = Observable.fromCallable(callable);
 
